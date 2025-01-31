@@ -1,0 +1,11 @@
+<!-- ============================================================== -->
+<!-- Profile - style you can find in header.scss -->
+<!-- ============================================================== -->
+
+<button [matMenuTriggerFor]="profile" mat-icon-button class="m-r-5"> <img src="assets/images/users/1.jpg" alt="user" class="profile-pic"> </button>
+<mat-menu #profile="matMenu" class="mymegamenu">
+  <button mat-menu-item (click)="downloadManual()" matTooltip="Salir del Sistema">
+    <mat-icon>quiz</mat-icon> Manual de usuario </button>
+  <button mat-menu-item (click)="onLoggedout()" matTooltip="Salir del Sistema">
+    <mat-icon>exit_to_app</mat-icon> Salir </button>
+</mat-menu>

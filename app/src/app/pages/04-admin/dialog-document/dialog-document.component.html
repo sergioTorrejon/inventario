@@ -1,0 +1,186 @@
+<!-- HEADER -->
+<div fxLayout="row wrap">
+  <div>
+    <img src="assets/images/logo-aps.png" alt="homepage" class="light-logo">
+  </div>
+  <span fxFlex></span>
+  <button mat-icon-button color="warn" matDialogClose="cancel" matTooltip="Salir" (click)="close('close')">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<h2 mat-dialog-title class="head-dialog" style="text-align: center;">{{_words.esp.titulo}}(APROBADO)</h2>
+<!--FIN DEL HEADER -->
+
+<!-- BODY -->
+<!-- BODY -->
+<div mat-dialog-content> <!-- instead of your <div>  or use <div mat-dialog-content> -->
+  <!-- FORMULARIO -->
+    <!-- SUBTITULO FORMULARIO -->
+      <mat-card-subtitle>{{_words.esp.datosDocumento}}</mat-card-subtitle>
+    <!-- FIN SUBTITULO FORMULARIO -->
+    <!--BUSQUEDA AVANZADA-->
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100" >
+        <div fxLayout="row wrap" >
+            <div fxFlex.gt-lg="50" fxFlex.gt-md="50"  fxFlex.gt-xs="100" fxFlex="100">
+              <!-- FORMULARIO INSECION -->
+
+
+              <div fxLayout="row wrap" >
+                <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100">
+                  <div class="formulario" fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
+                      <b>Publicado:</b>
+                  </div>
+                  <div class="formulario" fxFlex.gt-lg="80" fxFlex.gt-md="80"  fxFlex.gt-xs="100" fxFlex="100">
+                        El documento <b *ngIf="!data.data.rc_publicar_web">NO</b> se encuentra publicado en la Web.
+                  </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100">
+                  <div class="formulario" fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
+                      <b>Entidad:</b>
+                  </div>
+                  <div class="formulario" fxFlex.gt-lg="80" fxFlex.gt-md="80"  fxFlex.gt-xs="100" fxFlex="100">
+                      {{data.data.entidad}}
+                  </div>
+                </div>
+                <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100">
+                  <div class="formulario" fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
+                      <b>Documento:</b>
+                  </div>
+                  <div class="formulario" fxFlex.gt-lg="80" fxFlex.gt-md="80"  fxFlex.gt-xs="100" fxFlex="100">
+                      {{data.data.tipo}}
+                  </div>
+                </div>
+                <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100">
+                  <div class="formulario" fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
+                      <b>Tipo Resolución:</b>
+                  </div>
+                  <div class="formulario" fxFlex.gt-lg="80" fxFlex.gt-md="80"  fxFlex.gt-xs="100" fxFlex="100">
+                      {{data.data.subtipo}}
+                  </div>
+                </div>
+                <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100">
+                  <div class="formulario" fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
+                      <b>Número:</b>
+                  </div>
+                  <div class="formulario" fxFlex.gt-lg="80" fxFlex.gt-md="80"  fxFlex.gt-xs="100" fxFlex="100">
+                      {{data.data.rc_numero}}
+                  </div>
+                </div>
+                <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100">
+                  <div class="formulario" fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
+                      <b>Getión:</b>
+                  </div>
+                  <div class="formulario" fxFlex.gt-lg="80" fxFlex.gt-md="80"  fxFlex.gt-xs="100" fxFlex="100">
+                      {{data.data.rc_year}}
+                  </div>
+                </div>
+                <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100">
+                  <div class="formulario" fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
+                      <b>Fecha:</b>
+                  </div>
+                  <div class="formulario" fxFlex.gt-lg="80" fxFlex.gt-md="80"  fxFlex.gt-xs="100" fxFlex="100">
+                      {{data.data.rc_fecha | date:'dd/MM/yyyy'}}
+                  </div>
+                </div>
+                <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100">
+                  <div class="formulario" fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
+                      <b>Título:</b>
+                  </div>
+                  <div class="formulario" fxFlex.gt-lg="80" fxFlex.gt-md="80"  fxFlex.gt-xs="100" fxFlex="100">
+                      {{data.data.rc_titulo}}
+                  </div>
+                </div>
+                <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100">
+                  <div class="formulario" fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
+                      <b>Mercado:</b>
+                  </div>
+                  <div class="formulario" fxFlex.gt-lg="80" fxFlex.gt-md="80"  fxFlex.gt-xs="100" fxFlex="100">
+                      {{data.data.rc_mercado}}
+                  </div>
+                </div>
+                <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100">
+                  <div class="formulario" fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
+                      <b>Comentarios:</b>
+                  </div>
+                  <div class="formulario" fxFlex.gt-lg="80" fxFlex.gt-md="80"  fxFlex.gt-xs="100" fxFlex="100">
+                      {{data.data.rc_comentarios}}
+                  </div>
+                </div>
+                <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100">
+                  <div class="formulario" fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
+                      <b>Nombre del Archivo:</b>
+                  </div>
+                  <div class="formulario" fxFlex.gt-lg="80" fxFlex.gt-md="80"  fxFlex.gt-xs="100" fxFlex="100">
+                      {{data.data.rc_filename}}
+                  </div>
+                </div>
+                <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100">
+                  <div class="formulario" fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
+                      <b>Tamaño del archivo:</b>
+                  </div>
+                  <div class="formulario" fxFlex.gt-lg="80" fxFlex.gt-md="80"  fxFlex.gt-xs="100" fxFlex="100">
+                      {{data.data.rc_filesize}}
+                  </div>
+                </div>
+                <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100">
+                  <div class="formulario" fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
+                      <b>Creado por:</b>
+                  </div>
+                  <div class="formulario" fxFlex.gt-lg="80" fxFlex.gt-md="80"  fxFlex.gt-xs="100" fxFlex="100">
+                      {{data.data.usuario_creacion}}
+                  </div>
+                </div>
+                <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100">
+                  <div class="formulario" fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
+                      <b>Derivado a:</b>
+                  </div>
+                  <div class="formulario" fxFlex.gt-lg="80" fxFlex.gt-md="80"  fxFlex.gt-xs="100" fxFlex="100">
+                      {{data.data.usuario}}
+                  </div>
+                </div>
+                <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100">
+                  <div class="formulario" fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
+                      <b>Estado:</b>
+                  </div>
+                  <div class="formulario" fxFlex.gt-lg="80" fxFlex.gt-md="80"  fxFlex.gt-xs="100" fxFlex="100">
+                      {{data.data.etapa}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="text-align: center;" fxFlex.gt-lg="50" fxFlex.gt-md="50"  fxFlex.gt-xs="100" fxFlex="100" >
+              <pdf-viewer [src]="src"
+              [render-text]="true"
+              [original-size]="false"
+              style="height: 400px;"
+              *ngIf="data.data.rc_filesize>0"
+              ></pdf-viewer>
+              <div *ngIf="data.data.rc_filesize==0">
+                <img style="height: 200px;" src="assets/images/pdf-error.png" alt="homepage" class="light-logo">
+                <p>El archivo no fue registrado</p>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  <!-- style="width: 300px; height: 500px" -->
+</div>
+<!--FIN DEL BODY -->
+<div mat-dialog-actions fxLayout="row wrap"   >
+  <div fxFlex.gt-lg="80" fxFlex.gt-md="80"  fxFlex.gt-xs="100" fxFlex="100">
+  </div>
+  <div style="text-align: right;" fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
+    <div *ngIf="data.data.rc_filesize>0" class="form-element" >
+      <button mat-button color="primary" (click)="downloadPdf()"><mat-icon>file_download</mat-icon>Descargar</button>
+    </div>
+  </div>
+  <div style="text-align: right;" fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
+    <div *ngIf="data.data.rc_filesize>0" class="form-element" >
+      <button mat-button color="primary" (click)="downloadPdf()"><mat-icon>file_download</mat-icon>Paso Atras</button>
+    </div>
+  </div>
+</div>
+
+
