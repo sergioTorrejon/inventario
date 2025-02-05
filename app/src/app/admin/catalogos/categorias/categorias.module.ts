@@ -9,7 +9,7 @@ import { AppMaterialModule } from 'src/app/app-material-module';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { RegistrosComponent } from './registros.component';
+import { RegistrosComponent } from './categorias.component';
 import { DialogInsertComponent } from './dialog-insert/dialog-insert.component';
 import { DialogNotificadosInsertComponent } from './notificados/dialog-notificados-insert/dialog-notificados-insert.component';
 import { DialogUpdateComponent } from './dialog-update/dialog-update.component';
