@@ -65,40 +65,7 @@ const MENUITEMS: any =
     icon: 'settings',
     role : ['administrador'],
     children: []
-  },
-
-  {
-    state: 'config',
-    name: 'Configuración',
-    type: 'link',
-    icon: 'settings',
-    role : ['administrador'],
-    children: []
-  },
-  {
-    state: 'productos',
-    name: 'Productos',
-    type: 'link',
-    icon: 'settings',
-    role : ['administrador'],
-    children: []
-  },
-  {
-    state: 'almacen',
-    name: 'Almacen',
-    type: 'link',
-    icon: 'settings',
-    role : ['administrador'],
-    children: []
-  },
-  {
-    state: 'reportes',
-    name: 'Reportes',
-    type: 'link',
-    icon: 'settings',
-    role : ['administrador'],
-    children: []
-  },
+  }
 
 ];
 
