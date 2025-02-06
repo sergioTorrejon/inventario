@@ -8,7 +8,7 @@ import {
 } from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { Words } from 'src/app/models/words';
-import { VerificacionService } from '../../verificacion.service';
+import { ProductosService } from '../../productos.service';
 
 @Component({
   selector: 'app-dialog-notificados-insert',
@@ -57,7 +57,7 @@ export class DialogNotificadosInsertComponent implements OnInit {
     private formBuilder: UntypedFormBuilder,
     private dialogRef: MatDialogRef<DialogNotificadosInsertComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public rest: VerificacionService,
+    public rest: ProductosService,
     private dialog: MatDialog,
   )
   {

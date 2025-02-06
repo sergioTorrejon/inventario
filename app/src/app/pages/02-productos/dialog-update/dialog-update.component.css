@@ -35,14 +35,6 @@
   left:-5px;
 }
 
-.formulario {
-  font-size: 13px;
-  font-weight: 300;
-  line-height: 1.2;
-  padding-top: 1px;
-  font-family: Poppins, sans-serif;
-  letter-spacing: normal;
-}
 
 @media (max-width: 800px) {
   .form-label{

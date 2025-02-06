@@ -29,16 +29,16 @@ export const AppRoutes: Routes = [
         loadChildren: () => import('./pages/01-consultas/consultas.module').then(m => m.ConsultasModule)
       },
       {
-        path: 'registros',
+        path: 'productos',
         //canActivate: [AuthGuard],
         canActivate: [OperadorGuard],
-        loadChildren: () => import('./pages/02-registros/registros.module').then(m => m.RegistrosModule)
+        loadChildren: () => import('./pages/02-productos/productos.module').then(m => m.ProductosModule)
       },
       {
-        path: 'verificacion',
+        path: 'almacen',
         //canActivate: [AuthGuard],
-        canActivate: [SupervisorGuard],
-        loadChildren: () => import('./pages/03-verificaciones/verificacion.module').then(m => m.VerificacionModule)
+        canActivate: [OperadorGuard],
+        loadChildren: () => import('./pages/03-registros/registros.module').then(m => m.RegistrosModule)
       },
       {
         path: 'administrador',

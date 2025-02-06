@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
               this.router.navigate(['/verificacion']);
             }
             else if(role_principal==='operador') {
-              this.router.navigate(['/registros']);
+              this.router.navigate(['/almacen']);
             }
             else {
               this.router.navigate(['/consultas']);

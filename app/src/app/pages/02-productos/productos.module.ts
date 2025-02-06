@@ -2,22 +2,24 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { VerificacionComponent } from './verificacion.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatTableModule} from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { AppMaterialModule } from 'src/app/app-material-module';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DialogUpdateComponent } from './dialog-update/dialog-update.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { ProductosComponent } from './productos.component';
+import { DialogInsertComponent } from './dialog-insert/dialog-insert.component';
 import { DialogNotificadosInsertComponent } from './notificados/dialog-notificados-insert/dialog-notificados-insert.component';
-import { DialogVerificadoComponent } from './dialog-verificado/dialog-verificado.component';
+import { DialogUpdateComponent } from './dialog-update/dialog-update.component';
+import { DialogDocumentComponent } from './dialog-document/dialog-document.component';
 
 @NgModule({
-    declarations: [VerificacionComponent, DialogUpdateComponent, DialogNotificadosInsertComponent, DialogVerificadoComponent],
+    declarations: [ProductosComponent, DialogInsertComponent, DialogUpdateComponent, DialogNotificadosInsertComponent, DialogDocumentComponent,
+    ],
     exports: [],
-    bootstrap: [VerificacionComponent],
+    bootstrap: [ProductosComponent],
     imports: [
         ReactiveFormsModule,
         PdfViewerModule,
@@ -32,9 +34,9 @@ import { DialogVerificadoComponent } from './dialog-verificado/dialog-verificado
         RouterModule.forChild([
             {
                 path: '',
-                component: VerificacionComponent
+                component: ProductosComponent
             },
         ])
     ]
 })
-export class VerificacionModule { }
+export class ProductosModule { }

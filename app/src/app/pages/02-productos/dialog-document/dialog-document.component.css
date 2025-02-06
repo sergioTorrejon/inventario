@@ -38,11 +38,11 @@
 .formulario {
   font-size: 13px;
   font-weight: 300;
-  padding-top: 1px;
   line-height: 1.2;
   font-family: Poppins, sans-serif;
   letter-spacing: normal;
 }
+
 
 @media (max-width: 800px) {
   .form-label{

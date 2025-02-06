@@ -43,21 +43,22 @@ const MENUITEMS: any =
     children: []
   },
   {
-    state: 'registros',
-    name: 'Registros',
+    state: 'productos',
+    name: 'Productos',
     type: 'link',
     icon: 'edit_note',
     role : ['operador'],
     children: []
   },
   {
-    state: 'verificacion',
-    name: 'Verificación',
+    state: 'almacen',
+    name: 'Almacen',
     type: 'link',
-    icon: 'checklist_rtl',
-    role : ['supervisor'],
+    icon: 'edit_note',
+    role : ['operador'],
     children: []
   },
+
   {
     state: 'administrador',
     name: 'Administrador',

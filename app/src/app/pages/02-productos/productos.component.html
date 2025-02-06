@@ -1,12 +1,17 @@
-<div *ngIf="this.authorizationService.isAuthorized('supervisor')" fxLayout="row wrap">
+<div *ngIf="this.authorizationService.isAuthorized('operador')" fxLayout="row wrap">
   <div fxFlex="100">
     <mat-card class="card">
 
     <!-- TITULO CABECERA -->
       <mat-card-header>
         <img mat-card-avatar src="assets/images/img/documentos1.jpg" class="header-image"/>
-        <mat-card-title>Verificación</mat-card-title>
+        <mat-card-title>Productos</mat-card-title>
         <span fxFlex></span>
+        <div style="text-align: right;"  fxFlex.gt-lg="10" fxFlex.gt-md="10"  fxFlex.gt-xs="100" fxFlex="100" >
+          <button *ngIf="this.authorizationService.isAuthorized('operador')" mat-button color="primary" (click)="insertRow()">
+            <mat-icon>add</mat-icon>
+            Nuevo</button>
+        </div>
         <div style="text-align: right;"  fxFlex.gt-lg="10" fxFlex.gt-md="10"  fxFlex.gt-xs="100" fxFlex="100" >
           <button mat-button color="primary" [matMenuTriggerFor]="menu"><mat-icon>menu</mat-icon>{{ _words.esp.opciones }}</button>
             <mat-menu #menu="matMenu">
@@ -19,20 +24,20 @@
 
     <!--SUB TITULO O TITULO DE LA TABLA-->
     <!--BUSQUEDA AVANZADA-->
-    <div *ngIf="this.authorizationService.isAuthorized('supervisor')" fxLayout="row wrap">
+    <div *ngIf="this.authorizationService.isAuthorized('operador')" fxLayout="row wrap">
       <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100" >
         <div fxLayout="row wrap" >
-          <div fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
-            <form  [formGroup]="formGroup" >
-              <mat-form-field class="form-search" appearance="outline" >
-                  <mat-label>Estado</mat-label>
-                  <mat-select formControlName="etapa">
-                    <mat-option value="">TODOS</mat-option>
-                    <mat-option *ngFor="let option of estado" [value]="option.value">{{option.label}}</mat-option>
-                  </mat-select >
-              </mat-form-field>
-            </form>
-          </div>
+            <div fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
+              <form  [formGroup]="formGroup" >
+                <mat-form-field class="form-search" appearance="outline" >
+                    <mat-label>Estado</mat-label>
+                    <mat-select formControlName="etapa">
+                      <mat-option value="">TODOS</mat-option>
+                      <mat-option *ngFor="let option of estado" [value]="option.value">{{option.label}}</mat-option>
+                    </mat-select >
+                </mat-form-field>
+              </form>
+            </div>
             <div fxFlex.gt-lg="10" fxFlex.gt-md="10"  fxFlex.gt-xs="100" fxFlex="100">
               <form  [formGroup]="formGroup" >
               <mat-form-field class="form-search" appearance="outline" >
@@ -103,6 +108,9 @@
               <form  [formGroup]="formGroup" >
               <mat-form-field class="form-search" appearance="outline">
                   <mat-label>Desde</mat-label>
+                  <button mat-button *ngIf="formGroup.controls['del'].value" matSuffix mat-icon-button color="warn" aria-label="Clear" (click)="formGroup.controls['del'].setValue('')">
+                    <mat-icon>close</mat-icon>
+                  </button>
                   <input [matDatepicker]="desde" (click)="desde.open()" matInput formControlName="del" readonly>
                   <mat-datepicker #desde></mat-datepicker>
               </mat-form-field>
@@ -113,6 +121,9 @@
               <mat-form-field class="form-search" appearance="outline">
                 <mat-label>Hasta</mat-label>
                 <input [matDatepicker]="hasta" (click)="hasta.open()" matInput formControlName="al" readonly>
+                <button mat-button *ngIf="formGroup.controls['al'].value" matSuffix mat-icon-button color="warn" aria-label="Clear" (click)="formGroup.controls['al'].setValue('')">
+                  <mat-icon>close</mat-icon>
+                </button>
                 <mat-datepicker #hasta></mat-datepicker>
               </mat-form-field>
             </form>
@@ -127,17 +138,13 @@
     </div>
   <!-- FIN BUSQUEDA AVANZADA -->
 
-    <!-- TABLA -->
-    <!--FILA DEL MENU-->
-    <!-- FIN FILA DE MENU -->
-
     <!-- CABECERAS DE LA TABLA -->
       <div fxLayout="row wrap" matSort (matSortChange)="sortData($event)" matSortActive="rc_fecha" matSortDirection="desc" matSortDisableClear>
         <div   class="form-table-head"
         *ngFor="let config of headersTable" [mat-sort-header]="config.name" [fxFlex.gt-lg]="config.width" [fxFlex.gt-md]="config.width" fxFlex.gt-xs="100" fxFlex="100">
         {{config.label}}
         </div>
-        <div class="form-table-head"fxFlex.gt-lg="10" fxFlex.gt-md="10"  fxFlex.gt-xs="10" fxFlex="10">
+        <div class="form-table-head" fxFlex.gt-lg="10" fxFlex.gt-md="10"  fxFlex.gt-xs="100" fxFlex="100">
         </div>
       </div>
     <!-- FIN CABECERAS DE LA TABLA -->
@@ -170,12 +177,21 @@
         </div>
       </div>
       <div style="text-align: right;" fxFlex.gt-lg="10" fxFlex.gt-md="10"  fxFlex.gt-xs="10" fxFlex="10">
-        <button *ngIf="config.etapa=='APROBADO'" mat-icon-button matTooltip="Aprobado" (click)="documentRow(config)">
-          <mat-icon style="color: green;">verified_user</mat-icon>
+        <button *ngIf="config.rc_filesize>0&&config.etapa=='CREADO'" mat-icon-button matTooltip="ver adjunto" (click)="openPdf(config)">
+          <mat-icon color="warn">picture_as_pdf</mat-icon>
         </button>
-            <button *ngIf="config.etapa=='PENDIENTE'"mat-icon-button matTooltip="Pendiente" (click)="updateRow(config)">
-              <mat-icon color='warn'>privacy_tip</mat-icon>
-            </button>
+          <button *ngIf="config.etapa=='CREADO'" mat-icon-button matTooltip="Editar" (click)="updateRow(config)">
+            <mat-icon color="accent">edit</mat-icon>
+          </button>
+          <button *ngIf="config.etapa=='CREADO'" mat-icon-button matTooltip="Eliminar" (click)="deleteRow(config)">
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
+          <button *ngIf="config.etapa=='APROBADO'" mat-icon-button matTooltip="Aprobado" (click)="documentRow(config)">
+            <mat-icon style="color: green;">verified_user</mat-icon>
+          </button>
+          <button *ngIf="config.etapa=='PENDIENTE'"mat-icon-button matTooltip="Pendiente" (click)="documentRow(config)">
+            <mat-icon color='warn'>privacy_tip</mat-icon>
+          </button>
       </div>
       <mat-divider></mat-divider>
     </div>

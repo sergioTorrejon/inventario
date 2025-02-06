@@ -1,42 +1,21 @@
+import { Component, Inject, OnInit } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
-  Component,
-  Inject,
-  OnInit,
-} from '@angular/core';
-import {
-  UntypedFormBuilder,
-  UntypedFormGroup,
-  Validators,
-} from '@angular/forms';
-import {
-  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
   MAT_MOMENT_DATE_FORMATS,
   MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
 } from '@angular/material-moment-adapter';
-import {
-  DateAdapter,
-  MAT_DATE_FORMATS,
-  MAT_DATE_LOCALE,
-} from '@angular/material/core';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogConfig,
-  MatDialogRef,
-} from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { Words } from 'src/app/models/words';
-
-import {
-  DialogNotificadosInsertComponent,
-} from '../notificados/dialog-notificados-insert/dialog-notificados-insert.component';
-import { VerificacionService } from '../verificacion.service';
+import { DialogNotificadosInsertComponent } from '../notificados/dialog-notificados-insert/dialog-notificados-insert.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ProductosService } from '../productos.service';
 
 @Component({
-  selector: 'app-dialog-update',
-  templateUrl: './dialog-update.component.html',
-  styleUrls: ['./dialog-update.component.css'],
+  selector: 'app-dialog-document',
+  templateUrl: './dialog-document.component.html',
+  styleUrls: ['./dialog-document.component.css'],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'es-BO'},
     {
@@ -47,7 +26,7 @@ import { VerificacionService } from '../verificacion.service';
     {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
   ],
 })
-export class DialogUpdateComponent implements OnInit {
+export class DialogDocumentComponent implements OnInit {
 
   //Palabras Internacionalizadas
   _words = Words;
@@ -60,7 +39,6 @@ export class DialogUpdateComponent implements OnInit {
 
   disabledNotificaciones = false;
   disabled = false;
-  disabledObservaciones = false;
 
   dataAutoComplete: any =[] ;
 
@@ -86,11 +64,9 @@ export class DialogUpdateComponent implements OnInit {
     'rc_numero': [null, [Validators.required , Validators.minLength(4), Validators.maxLength(4)]],
     'rc_alfa': ['', [Validators.maxLength(1)]],
     'rc_fecha': [null, Validators.required],
-    'rc_titulo':  [null, [Validators.required , Validators.minLength(2), Validators.maxLength(1000)]],
-    'rc_comentarios': ['', [ Validators.minLength(2), Validators.maxLength(2000)]],
+    'rc_titulo':  [null, [Validators.required , Validators.minLength(2), Validators.maxLength(300)]],
+    'rc_comentarios': ['', [ Validators.minLength(2), Validators.maxLength(200)]],
     'rc_filename':  [''],
-    'observaciones':  [''],
-
   };
 
   formControlNotificaciones:any=
@@ -110,9 +86,9 @@ export class DialogUpdateComponent implements OnInit {
   constructor
   (
     private formBuilder: UntypedFormBuilder,
-    private dialogRef: MatDialogRef<DialogUpdateComponent>,
+    private dialogRef: MatDialogRef<DialogDocumentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public rest: VerificacionService,
+    public rest: ProductosService,
     private dialog: MatDialog,
     private _snackBar: MatSnackBar
 
@@ -147,10 +123,9 @@ export class DialogUpdateComponent implements OnInit {
       rc_numero: [this.data.data.rc_numero, [Validators.required , Validators.minLength(4), Validators.maxLength(4)]],
       rc_alfa: [this.data.data.rc_alfa, [Validators.maxLength(1)]],
       rc_fecha: [this.data.data.rc_fecha, Validators.required],
-      rc_titulo:  [this.data.data.rc_titulo, [Validators.required , Validators.minLength(2), Validators.maxLength(1000)]],
-      rc_comentarios: [this.data.data.rc_comentarios, [Validators.minLength(2), Validators.maxLength(2000)]],
+      rc_titulo:  [this.data.data.rc_titulo, [Validators.required , Validators.minLength(2), Validators.maxLength(300)]],
+      rc_comentarios: [this.data.data.rc_comentarios, [Validators.minLength(2), Validators.maxLength(300)]],
       rc_filename:  [this.data.data.rc_filename],
-      observaciones:  [''],
     };
     this.nameFileValidation.tipo=this.data.data.rc_tipo
     this.nameFileValidation.numero = this.data.data.rc_numero;
@@ -158,9 +133,7 @@ export class DialogUpdateComponent implements OnInit {
     this.validationNameFile()
     this.formGroup =this.formBuilder.group(this.formControl);
     this.formOnchange();
-    this.getNotificados();
     this.formGroup.controls['rc_subtipo'].disable();
-    //this.formGroup.controls['rc_fileName'].disable();
     this.formGroup.controls['rc_alfa'].disable();
 
     if (this.data.data.rc_tipo=='RA')
@@ -169,12 +142,6 @@ export class DialogUpdateComponent implements OnInit {
       this.disabledNotificaciones = true
     }
 
-    this.formGroup.controls['observaciones'].valueChanges.subscribe(async data => {
-      this.disabledObservaciones= true;
-      if(data.length<2){
-        this.disabledObservaciones= false;
-      }
-    })
 
     this.formGroup.controls['rc_tipo'].valueChanges.subscribe(async data => {
       this.disabledNotificaciones = true
@@ -189,8 +156,6 @@ export class DialogUpdateComponent implements OnInit {
     this.formGroup.controls['rc_numero'].disable();
     this.formGroup.controls['rc_inten'].disable();
     this.formGroup.controls['rc_tipo'].disable();
-    this.formGroup.controls['rc_filename'].disable();
-    this.formGroup.controls['rc_mercado'].disable();
     //this.formGroup.controls['rc_mercado'].disable();
     this.formGroupNotificacion.controls['t_aquien'].valueChanges.subscribe(async data => {
       console.log(data)
@@ -283,7 +248,6 @@ export class DialogUpdateComponent implements OnInit {
   }
 
   onSubmit(post:any) {
-    const dto = (this.formGroup).getRawValue();
     const formData = new FormData();
     formData.append('file', this.file);
     for (let i in post) {
@@ -294,24 +258,6 @@ export class DialogUpdateComponent implements OnInit {
     subscribe((data:any) => {
       this.dataRow = data.data;
       console.log(this.dataRow, data)
-      this.close('confirm');
-    });
-  }
-
-  refuse(post:any) {
-    this.rest.refuse('cartas_resoluciones', this.data.data.id,post).
-    subscribe((data:any) => {
-      this.dataRow = data.data;
-      console.log(this.dataRow, data)
-      this.close('confirm');
-    });
-  }
-
-  checker(post:any) {
-    console.log(post)
-    this.rest.checker('cartas_resoluciones', this.data.data.id,post).
-    subscribe((data:any) => {
-      this.dataRow = data.data;
       this.close('confirm');
     });
   }
@@ -371,5 +317,13 @@ export class DialogUpdateComponent implements OnInit {
       verticalPosition: 'top',
       panelClass: [type]
     })
+  }
+
+  downloadPdf(){
+    this.rest.getFile('cartas_resoluciones', this.data.data.id ).subscribe(
+      (res:any) => {
+        const fileURL = URL.createObjectURL(res);
+        window.open(fileURL, '_blank');
+      });
   }
 }

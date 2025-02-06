@@ -8,9 +8,10 @@
     <mat-icon>close</mat-icon>
   </button>
 </div>
-<h2 mat-dialog-title class="head-dialog" style="text-align: center;">Ficha del documento</h2>
+<h2 mat-dialog-title class="head-dialog" style="text-align: center;">{{_words.esp.titulo}}(APROBADO)</h2>
 <!--FIN DEL HEADER -->
 
+<!-- BODY -->
 <!-- BODY -->
 <div mat-dialog-content> <!-- instead of your <div>  or use <div mat-dialog-content> -->
   <!-- FORMULARIO -->
@@ -23,6 +24,8 @@
         <div fxLayout="row wrap" >
             <div fxFlex.gt-lg="50" fxFlex.gt-md="50"  fxFlex.gt-xs="100" fxFlex="100">
               <!-- FORMULARIO INSECION -->
+
+
               <div fxLayout="row wrap" >
                 <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100">
                   <div class="formulario" fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
@@ -142,15 +145,7 @@
                       <b>Estado:</b>
                   </div>
                   <div class="formulario" fxFlex.gt-lg="80" fxFlex.gt-md="80"  fxFlex.gt-xs="100" fxFlex="100">
-                      {{data.data.rc_numero}}
-                  </div>
-                </div>
-                <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100">
-                  <div class="formulario" fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
-                      <b>Número:</b>
-                  </div>
-                  <div class="formulario" fxFlex.gt-lg="80" fxFlex.gt-md="80"  fxFlex.gt-xs="100" fxFlex="100">
-                      {{data.data.rc_numero}}
+                      {{data.data.etapa}}
                   </div>
                 </div>
               </div>
@@ -171,11 +166,8 @@
       </div>
     </div>
   <!-- style="width: 300px; height: 500px" -->
-
 </div>
 <!--FIN DEL BODY -->
-
-<!-- ACTIONS -->
 <div mat-dialog-actions fxLayout="row wrap"   >
   <div fxFlex.gt-lg="80" fxFlex.gt-md="80"  fxFlex.gt-xs="100" fxFlex="100">
   </div>
@@ -185,4 +177,5 @@
     </div>
   </div>
 </div>
-<!-- FIN DE ACTIONS *ngIf="dataRow.length==0"-->
+
+

@@ -1,21 +1,42 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import {
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
   MAT_MOMENT_DATE_FORMATS,
   MomentDateAdapter,
-  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
 } from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-import { Words } from 'src/app/models/words';
-import { DialogNotificadosInsertComponent } from '../notificados/dialog-notificados-insert/dialog-notificados-insert.component';
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+} from '@angular/material/core';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogConfig,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { RegistrosService } from '../../02-registros/registros.service';
+
+import { Words } from 'src/app/models/words';
+
+import {
+  DialogNotificadosInsertComponent,
+} from '../notificados/dialog-notificados-insert/dialog-notificados-insert.component';
+import { ProductosService } from '../productos.service';
 
 @Component({
-  selector: 'app-dialog-verificado',
-  templateUrl: './dialog-verificado.component.html',
-  styleUrls: ['./dialog-verificado.component.css'],
+  selector: 'app-dialog-update',
+  templateUrl: './dialog-update.component.html',
+  styleUrls: ['./dialog-update.component.css'],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'es-BO'},
     {
@@ -26,7 +47,7 @@ import { RegistrosService } from '../../02-registros/registros.service';
     {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
   ],
 })
-export class DialogVerificadoComponent implements OnInit {
+export class DialogUpdateComponent implements OnInit {
 
   //Palabras Internacionalizadas
   _words = Words;
@@ -41,6 +62,8 @@ export class DialogVerificadoComponent implements OnInit {
   disabled = false;
 
   dataAutoComplete: any =[] ;
+
+  setFecha:any;
 
   nameFileValidation:any={numero:'',fecha:'',tipo:'', val:'', status:''};
 
@@ -64,9 +87,11 @@ export class DialogVerificadoComponent implements OnInit {
     'rc_numero': [null, [Validators.required , Validators.minLength(4), Validators.maxLength(4)]],
     'rc_alfa': ['', [Validators.maxLength(1)]],
     'rc_fecha': [null, Validators.required],
-    'rc_titulo':  [null, [Validators.required , Validators.minLength(2), Validators.maxLength(300)]],
-    'rc_comentarios': ['', [ Validators.minLength(2), Validators.maxLength(200)]],
+    'rc_titulo':  [null, [Validators.required , Validators.minLength(2), Validators.maxLength(1000)]],
+    'rc_comentarios': ['', [ Validators.minLength(2), Validators.maxLength(2000)]],
     'rc_filename':  [''],
+    'etapa':  ['CREADO'],
+    'derivado': [''],
   };
 
   formControlNotificaciones:any=
@@ -77,18 +102,16 @@ export class DialogVerificadoComponent implements OnInit {
     't_fecha': [null, Validators.required],
     't_hora':  [null, [Validators.required]],
     't_aquien':  [null, [Validators.minLength(2), Validators.maxLength(300)]],
-    't_atraves': [null, [Validators.required , Validators.minLength(2), Validators.maxLength(300)]],
+    't_atraves': ['REPRESENTANTE LEGAL', [Validators.required , Validators.minLength(2), Validators.maxLength(300)]],
     'estado':  [true, [Validators.required]],
   };
-  src = "";
-
 
   constructor
   (
     private formBuilder: UntypedFormBuilder,
-    private dialogRef: MatDialogRef<DialogVerificadoComponent>,
+    private dialogRef: MatDialogRef<DialogUpdateComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public rest: RegistrosService,
+    public rest: ProductosService,
     private dialog: MatDialog,
     private _snackBar: MatSnackBar
 
@@ -100,6 +123,7 @@ export class DialogVerificadoComponent implements OnInit {
 
   async ngOnInit( )
   {
+    console.log(this.data)
     this.rest.getNotificaciones('notificaciones',this.data.data.id).
     subscribe((data:any) => {
       this.dataNotificaciones = data.data;
@@ -121,16 +145,19 @@ export class DialogVerificadoComponent implements OnInit {
       rc_numero: [this.data.data.rc_numero, [Validators.required , Validators.minLength(4), Validators.maxLength(4)]],
       rc_alfa: [this.data.data.rc_alfa, [Validators.maxLength(1)]],
       rc_fecha: [this.data.data.rc_fecha, Validators.required],
-      rc_titulo:  [this.data.data.rc_titulo, [Validators.required , Validators.minLength(2), Validators.maxLength(300)]],
-      rc_comentarios: [this.data.data.rc_comentarios, [Validators.minLength(2), Validators.maxLength(300)]],
+      rc_titulo:  [this.data.data.rc_titulo, [Validators.required , Validators.minLength(2), Validators.maxLength(1000)]],
+      rc_comentarios: [this.data.data.rc_comentarios, [Validators.minLength(2), Validators.maxLength(2000)]],
       rc_filename:  [this.data.data.rc_filename],
+      derivado:  [''],
     };
+    this.setFecha = this.formatDate(this.data.data.rc_fecha)
     this.nameFileValidation.tipo=this.data.data.rc_tipo
     this.nameFileValidation.numero = this.data.data.rc_numero;
     this.nameFileValidation.fecha = ((new Date(this.data.data.rc_fecha)).getFullYear()).toString().substring(2,4);
     this.validationNameFile()
     this.formGroup =this.formBuilder.group(this.formControl);
     this.formOnchange();
+    this.getNotificados();
     this.formGroup.controls['rc_subtipo'].disable();
     this.formGroup.controls['rc_alfa'].disable();
 
@@ -163,19 +190,6 @@ export class DialogVerificadoComponent implements OnInit {
         console.log(data)
       });
     })
-    this.openPdf();
-  }
-  openPdf(){
-    const pdf = this.formGroup.controls['rc_filename'].value
-    if (pdf!='')
-    {
-      this.rest.getFile('cartas_resoluciones', this.data.data.id).subscribe(
-        (res:any) => {
-          const fileURL = URL.createObjectURL(res);
-          this.src =fileURL;
-          //window.open(fileURL, '_blank');
-        });
-    }
 
   }
 
@@ -317,11 +331,12 @@ export class DialogVerificadoComponent implements OnInit {
     })
   }
 
-  downloadPdf(){
-    this.rest.getFile('cartas_resoluciones', this.data.data.id ).subscribe(
-      (res:any) => {
-        const fileURL = URL.createObjectURL(res);
-        window.open(fileURL, '_blank');
-      });
+  formatDate(date:Date) {
+    const dateFormat = new Date(date);
+       const auxMax = dateFormat.getFullYear() + '-12-31';
+       const auxMin = dateFormat.getFullYear() + '-01-01';
+       const max =  new Date(auxMax);
+       const min =  new Date(auxMin);
+       return {max:max,min:min}
   }
 }
