@@ -38,8 +38,8 @@ import {
   CartasResolucionesSearchDto,
 } from './dtos';
 import { CartasResolucionesWebDto } from './dtos/cartas-resoluciones-web.dto';
-import { User } from 'src/core/users/decorators/user.decorator';
 import { UserDecorator } from 'src/common/decorators';
+import { JwtConsultaRoleGuard } from 'src/core/auth/guards/jwt-consulta-role.guard';
 
 @ApiTags('CartasResoluciones')
 @Controller('cartas_resoluciones')
@@ -51,7 +51,7 @@ export class CartasResolucionesController {
   //#region CRUD
   //---------------GET DATA PAGINATE------------//
   @Get()
-  @UseGuards(JwtAdministradorRoleGuard) 
+  @UseGuards(JwtConsultaRoleGuard) 
   async getDataPaginate(@UserDecorator() _user,@Query() dto: CartasResolucionesSearchDto){
     console.log("Prueba donde esta entrando el documento")
     return await this.service.getDataPaginate(dto) 
