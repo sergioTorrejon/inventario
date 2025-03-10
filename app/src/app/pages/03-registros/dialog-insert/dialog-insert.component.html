@@ -1,40 +1,27 @@
 <!-- HEADER -->
   <div fxLayout="row wrap">
     <div>
-      <img src="assets/images/logo-aps.png" alt="homepage" class="light-logo">
     </div>
     <span fxFlex></span>
     <button mat-icon-button color="warn" matDialogClose="cancel" matTooltip="Salir" (click)="close('close')">
       <mat-icon>close</mat-icon>
     </button>
   </div>
-  <h2 mat-dialog-title class="head-dialog" style="text-align: center;">{{_words.esp.titulo}}</h2>
+  <h2 mat-dialog-title class="head-dialog" style="text-align: center;">REGISTRO DE INGRESOS Y SALIDAS</h2>
 <!--FIN DEL HEADER -->
 <!-- BODY -->
   <div mat-dialog-content> <!-- instead of your <div>  or use <div mat-dialog-content> -->
     <!-- FORMULARIO -->
-      <!-- SUBTITULO FORMULARIO -->
-        <mat-card-subtitle>{{_words.esp.datosDocumento}}</mat-card-subtitle>
-      <!-- FIN SUBTITULO FORMULARIO -->
       <!-- FORMULARIO INSECION -->
         <div fxLayout="row wrap">
-      <!----------------------- FILA 1 ----------------------------->
+
+        <!----------------------- FILA 1 ----------------------------->
         <!-- PUBLICAR EN WEB -->
-<!--           <div fxFlex.gt-lg="15" fxFlex.gt-md="15"  fxFlex.gt-xs="100" fxFlex="100">
-            <form  [formGroup]="formGroup" >
-              <mat-form-field class="form-element" appearance="outline" >
-                <mat-label>Publicar en la web</mat-label>
-                <mat-select formControlName="rc_publicar_web">
-                  <mat-option *ngFor="let option of this.dataOptions.publicar" [value]="option.value">{{option.label}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </form>
-          </div> -->
-          <!-- INSTITUCION -->
+          <!-- ALMACEN -->
           <div fxFlex="50">
             <form  [formGroup]="formGroup" >
               <mat-form-field class="form-element" appearance="outline" >
-                <mat-label>Institucion</mat-label>
+                <mat-label>Almacen</mat-label>
                 <mat-select formControlName="rc_inten">
                   <mat-option *ngFor="let option of this.dataOptions.institucion" [value]="option.cod_ele">{{option.descrip}}</mat-option>
                 </mat-select>
@@ -42,12 +29,11 @@
               </mat-form-field>
             </form>
           </div>
-
-          <!-- MERCADO -->
+          <!-- PAIS -->
           <div fxFlex="50">
             <form  [formGroup]="formGroup" >
               <mat-form-field class="form-element" appearance="outline" >
-                <mat-label>Mercado</mat-label>
+                <mat-label>Pais</mat-label>
                 <mat-select formControlName="rc_mercado">
                   <mat-option *ngFor="let option of this.dataOptions.mercado" [value]="option.cod_ele">{{option.descrip}}</mat-option>
                 </mat-select>
@@ -55,9 +41,8 @@
               </mat-form-field>
             </form>
           </div>
-
           <!-- TIPO DOCUMENTO -->
-          <div fxFlex.gt-lg="30" fxFlex.gt-md="30"  fxFlex.gt-xs="100" fxFlex="100">
+          <div fxFlex="50">
             <form  [formGroup]="formGroup" >
               <mat-form-field class="form-element" appearance="outline" >
                 <mat-label>Tipo de documento</mat-label>
@@ -69,7 +54,7 @@
             </form>
           </div>
         <!-- FECHA -->
-          <div fxFlex.gt-lg="15" fxFlex.gt-md="15"  fxFlex.gt-xs="100" fxFlex="100">
+          <div fxFlex="25">
             <form  [formGroup]="formGroup" >
               <mat-form-field class="form-element" appearance="outline" >
                 <mat-label>Fecha</mat-label>
@@ -78,57 +63,40 @@
               </mat-form-field>
             </form>
           </div>
+        <!-- NUMERO -->
+        <div fxFlex="25">
+          <form  [formGroup]="formGroup" >
+            <mat-form-field class="form-element" appearance="outline" >
+              <mat-label>Número </mat-label>
+              <input  matInput formControlName="rc_numero" maxlength = "4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+              <mat-error >*Número 4 dígitos Ej.0025</mat-error>
+            </mat-form-field>
+          </form>
+        </div>
 
-      <!---------------------- FIN FILA 1 ------------------------->
-      <!---------------------- FILA 2 ----------------------------->
+        <!---------------------- FIN FILA 1 ------------------------->
+      
+        <!---------------------- FILA 2 ----------------------------->
         <!-- SUB TIPO -->
-          <div fxFlex.gt-lg="60" fxFlex.gt-md="60"  fxFlex.gt-xs="100" fxFlex="100">
+          <div fxFlex="50">
             <form  [formGroup]="formGroup" >
               <mat-form-field class="form-element" appearance="outline" >
-                <mat-label>Tipo de Resolución</mat-label>
+                <mat-label>Provedor</mat-label>
                 <mat-select formControlName="rc_subtipo">
                   <mat-option *ngFor="let option of this.dataOptions.tipo" [value]="option.cod_ele">{{option.descrip}}</mat-option>
                 </mat-select>
-                <mat-error >Seleccione un tipo de resolución</mat-error>
+                <mat-error >Seleccione un provedor</mat-error>
               </mat-form-field>
             </form>
           </div>
-        <!-- NUMERO -->
-          <div fxFlex.gt-lg="15" fxFlex.gt-md="15"  fxFlex.gt-xs="100" fxFlex="100">
-            <form  [formGroup]="formGroup" >
-              <mat-form-field class="form-element" appearance="outline" >
-                <mat-label>Número </mat-label>
-                <input  matInput formControlName="rc_numero" maxlength = "4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
-                <mat-error >*Número 4 dígitos Ej.0025</mat-error>
-              </mat-form-field>
-            </form>
-          </div>
-        <!-- ESPACIO -->
-          <div fxFlex.gt-lg="5" fxFlex.gt-md="5"  fxFlex.gt-xs="0" fxFlex="0">
-          </div>
-        <!-- HABILITAR_ALPHA -->
-          <div fxFlex.gt-lg="5" fxFlex.gt-md="5"  fxFlex.gt-xs="100" fxFlex="100" >
-            <div>
-              <mat-slide-toggle class="form-element" [(ngModel)]="disabled" (change)="enableAlpha($event.checked)"></mat-slide-toggle>
-            </div>
-          </div>
-        <!-- ALPHA -->
-          <div fxFlex.gt-lg="15" fxFlex.gt-md="15"  fxFlex.gt-xs="100" fxFlex="100" >
-            <form [formGroup]="formGroup" >
-              <mat-form-field class="form-element" appearance="outline">
-                <mat-label>Alfabetico</mat-label>
-                <input  matInput formControlName="rc_alfa" maxlength = "1" >
-                <mat-error >Alfanumerico</mat-error>
-              </mat-form-field>
-            </form>
-          </div>
+
       <!---------------------- FIN FILA 2 ------------------------->
       <!---------------------- FILA 3 ----------------------------->
         <!-- TITULO -->
-          <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100">
+          <div fxFlex="50">
             <form  [formGroup]="formGroup" >
               <mat-form-field class="form-element" appearance="outline">
-                <mat-label>Titulo</mat-label>
+                <mat-label>Descripción</mat-label>
                 <input  matInput formControlName="rc_titulo"  maxlength = "1000">
                 <mat-error >Ingrese el titulo de la Resolucion</mat-error>
               </mat-form-field>
@@ -147,33 +115,15 @@
             </form>
           </div>
 
-          <!-- ASIGNAR A  -->
-          <div fxFlex.gt-lg="30" fxFlex.gt-md="30"  fxFlex.gt-xs="100" fxFlex="100">
-            <form  [formGroup]="formGroup" >
-              <mat-form-field class="form-element" appearance="outline" >
-                <mat-label>Asignar a:</mat-label>
-                <mat-select formControlName="derivado">
-                  <mat-option *ngFor="let option of this.dataOptions.usuarios" [value]="option.value">{{option.label}}</mat-option>
-                </mat-select>
-                <mat-error >Seleccione el Mercado</mat-error>
-              </mat-form-field>
-            </form>
-          </div>
       <!---------------------- FIN FILA 4 ------------------------->
       <!---------------------- FILA 5 ----------------------------->
-      <!-- SUBTITULO ADJUNTA DOCUMENTO -->
-        <mat-card-subtitle>{{_words.esp.adjuntarDocumento}}
-          <b *ngIf="this.nameFileValidation.val.length==10">
-            <mat-icon *ngIf="this.nameFileValidation.status=='valido'" color="primary">done</mat-icon>
-            (Nombre del documento: {{this.nameFileValidation.val}}APSDD DESCRIPCION.pdf)</b>
-        </mat-card-subtitle>
       <!-- FIN SUBTITULO  ADJUNTA DOCUMENTO -->
         <!-- ADJUNTA DOCUMENTO -->
           <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100" >
             <form  [formGroup]="formGroup" >
               <mat-form-field class="form-element" appearance="outline" >
                 <mat-label>Documento digitalizado</mat-label>
-                <button *ngIf="this.nameFileValidation.val.length==10" mat-icon-button matPrefix (click)="file.click()">
+                <button mat-icon-button matPrefix (click)="file.click()">
                   <mat-icon>attach_file</mat-icon>
                 </button>
                 <input type="text" formControlName="rc_filename" readonly matInput (click)="file.click()" />

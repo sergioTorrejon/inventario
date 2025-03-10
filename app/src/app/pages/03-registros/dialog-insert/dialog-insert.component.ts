@@ -149,15 +149,8 @@ export class DialogInsertComponent implements OnInit  {
   onSelectFile(event: any) {
     this.file = event.target.files[0];
     const fileName = this.file.name.substring(0,10);
-    if (fileName==this.nameFileValidation.val)
-    {
-      this.formGroup.controls.rc_filename.setValue(this.file.name)
-      this.nameFileValidation.status='valido';
-    }
-    else{
-      this.openSnackBar('Nombre de Archivo Invalido: '+this.file.name,'','error')
-      this.clearFile();
-    }
+    this.formGroup.controls.rc_filename.setValue(this.file.name)
+    this.nameFileValidation.status='valido';
   }
 
   clearFile(){
@@ -169,20 +162,17 @@ export class DialogInsertComponent implements OnInit  {
   formOnchange(){
     this.formGroup.controls['rc_tipo'].valueChanges.subscribe(async data => {
       this.nameFileValidation.tipo = data;
-      this.validationNameFile()
     })
     this.formGroup.controls['rc_numero'].valueChanges.subscribe(async data => {
       this.nameFileValidation.numero = data;
-      this.validationNameFile()
     })
     this.formGroup.controls['rc_fecha'].valueChanges.subscribe(async data => {
       this.nameFileValidation.fecha = ((new Date(data)).getFullYear()).toString().substring(2,4);
-      this.validationNameFile()
     })
 
   }
 
-  validationNameFile(){
+/*   validationNameFile(){
     this.nameFileValidation.val='';
     this.clearFile();
     const nameVal = this.nameFileValidation.numero+'-'+this.nameFileValidation.fecha+'-'+this.nameFileValidation.tipo
@@ -191,7 +181,7 @@ export class DialogInsertComponent implements OnInit  {
       this.nameFileValidation.val=nameVal;
       this.formGroup.controls['rc_filename'].enable();
     }
-  }
+  } */
 
   deleteRow(rowSelect: any) {
     var i = this.dataNotificaciones.indexOf( rowSelect );

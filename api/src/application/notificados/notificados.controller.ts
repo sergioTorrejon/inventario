@@ -24,10 +24,11 @@ export class NotificadosController {
   ) {}
 
   //---------------GET DATA PAGINATE------------//
-  @UseGuards(JwtConsultaRoleGuard)
+  //@UseGuards(JwtConsultaRoleGuard)
   @Get()
   async GetData
   (@Query('descripcion') descripcion: string = ''){
+    console.log('prujeba de notificaciones++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
     const data = this.notificadosService.getDataFilter(descripcion);
     return data;
   }

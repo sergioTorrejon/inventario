@@ -339,8 +339,6 @@ export class CartasResolucionesService {
         if (!size)
         return {status:'error', message:FAIL_FILE_SIZE, data:[]};
         const fileName = await this.validateFileName(dto);
-        if (!fileName)
-        return {status:'error', message:FAIL_NAME, data:[]};
         const pathFolder = dto.rc_tipo=='RA'?RA:CC;
         
         await saveFile(pathFolder,file);
