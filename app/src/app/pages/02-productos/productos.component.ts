@@ -24,7 +24,7 @@ export class ProductosComponent implements OnInit {
   formGroup: UntypedFormGroup;
   formControl:any=
   {
-    model:['cartas_resoluciones'],
+    model:['productos'],
     entidad:['PS'],
     modulo:['PRODUCTOS'],
     etapa:[''],
@@ -56,11 +56,11 @@ export class ProductosComponent implements OnInit {
   headersTable: any =
   [
     //FORMULARIO
-    {name:'rc_tipo', label:'Documento',  width:15},
-    {name:'rc_tipo', label:'Tipo de Resolución',  width:19},
-    {name:'rc_numero', label:'Número',  width:8},
-    {name:'rc_fecha', label:'Fecha',  width:8},
-    {name:'rc_titulo', label:'Título / Referencia', width:40},
+    {name:'categoria', label:'Categoria',  width:15},
+    {name:'descripcion', label:'Descripción',  width:19},
+    {name:'marca', label:'Marca',  width:8},
+    {name:'modelo', label:'Modelo',  width:8},
+    {name:'observaciones', label:'Observaciones', width:40},
   ];
 
   estado: any =
@@ -80,7 +80,7 @@ export class ProductosComponent implements OnInit {
     ) {
       this.formGroup =this.formBuilder.group([]);
     }
-
+    
     ngOnInit() {
       this.setForm();
       this.getParams();
@@ -112,7 +112,6 @@ export class ProductosComponent implements OnInit {
         }
       })
     }
-
     sortData(event:any){
       this.sort = event.active;
       this.order = event.direction;
@@ -126,10 +125,18 @@ export class ProductosComponent implements OnInit {
       this.page.size = event.pageSize !== undefined? event.pageSize: 10;
       this.page.index = event.pageIndex !== undefined? event.pageIndex: 0;
       const dto = (this.formGroup).getRawValue();
-      this.rest.getDocs(dto,this.page.index+1, this.page.size,this.sort, this.order)
+/*       this.rest.getDocs(dto,this.page.index+1, this.page.size,this.sort, this.order)
       .subscribe((data:any) => {
         this.data = data.data;
         this.count = data.count;
+      }); */
+
+      this.rest.getDocs(dto,this.page.index+1, this.page.size,this.sort, this.order)
+      .subscribe((data:any) => {
+        console.log(data.data)
+        this.data = data.data.data;
+
+        this.count = data.data.count;
       });
     }
 

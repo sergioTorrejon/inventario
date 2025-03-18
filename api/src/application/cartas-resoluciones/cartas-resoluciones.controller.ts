@@ -12,7 +12,6 @@ import {
   JwtSupervisorRoleGuard,
 } from 'src/core/auth/guards/jwt-supervisor-role.guard';
 
-/* eslint-disable @typescript-eslint/camelcase */
 import {
   Body,
   Controller,
@@ -49,7 +48,6 @@ export class CartasResolucionesController {
   ) {}
   
   //#region CRUD
-  //---------------GET DATA PAGINATE------------//
   @Get()
   @UseGuards(JwtConsultaRoleGuard) 
   async getDataPaginate(@UserDecorator() _user,@Query() dto: CartasResolucionesSearchDto){

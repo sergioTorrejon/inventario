@@ -15,8 +15,7 @@ export class SeguimientosService {
     @InjectRepository(Seguimiento)
     private readonly repositorio: Repository<Seguimiento>,
   ) {}
-  //#region REPOSITORIO
-    
+  
     async scriptBase(){
       const script =  
         `

@@ -28,6 +28,7 @@ import { UsuariosModule } from './application/usuarios/usuarios.module';
 import { AuthModule } from './core/auth/auth.module';
 import { TYPEORM_CONFIG } from './core/config/constants';
 import databaseConfig from './core/config/database.config';
+import { ProductosModule } from './application/productos/productos.module';
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import databaseConfig from './core/config/database.config';
     NotificadosModule,
     CatalogosModule,
     UsuariosModule,
+    ProductosModule,
     SeguimientosModule,
     
   ],

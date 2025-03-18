@@ -27,18 +27,7 @@ export class ProductosService {
       (page === 0? ``: `&page=${page}`) +
       (limit === 0? ``: `&limit=${limit}`) +
       (sort === ''? ``: `&sort=${sort}`) +
-      (order === ''? ``: `&order=${order}`) +
-      (dto.modulo === ''? ``: `&modulo=${dto.modulo}`) +
-      (dto.etapa === ''? ``: `&etapa=${dto.etapa}`) +
-      (dto.entidad === ''? ``: `&rc_inten=${dto.entidad}`) +
-      (dto.year === 0? ``: `&rc_year=${dto.year}`) +
-      (dto.tipo === ''? ``: `&rc_tipo=${dto.tipo}`) +
-      (dto.numero === ''? ``: `&rc_numero=${dto.numero}`) +
-      (dto.titulo === ''? ``: `&rc_titulo=${dto.titulo}`) +
-      (dto.subtipo === ''? ``: `&rc_subtipo=${dto.subtipo}`) +
-      (dto.mercado === ''? ``: `&rc_mercado=${dto.mercado}`) +
-      (dto.del === ''? ``: `&del=${this.formatDate(dto.del)}`) +
-      (dto.al === ''? ``: `&al=${this.formatDate(dto.al)}`)
+      (order === ''? ``: `&order=${order}`)
       ).pipe();
     }
 
