@@ -92,7 +92,7 @@
 
       <!-- TABLA -->
       <div fxLayout="row wrap">
-        <div fxFlex="100" style="background-color: blueviolet !important;">
+        <div fxFlex="100">
           <!-- CABECERAS DE LA TABLA -->
           <div fxLayout="row wrap"  class="form-table-head" matSort (matSortChange)="sortData($event)" matSortActive="rc_fecha" matSortDirection="desc" matSortDisableClear>
             <div *ngFor="let config of headersTable" [mat-sort-header]="config.name" [fxFlex.gt-lg]="config.width" [fxFlex.gt-md]="config.width" fxFlex.gt-xs="100" fxFlex="100">
